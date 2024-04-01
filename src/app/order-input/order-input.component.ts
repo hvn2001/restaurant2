@@ -46,48 +46,34 @@ export class OrderInputComponent {
   }
 
   createPieChart(labels: string[], values: number[], backgroundColors: string[], canvasId: string) {
-    if (canvasId == 'pieChart1') {
+    if (canvasId === 'pieChart1') {
       if (this.chart1) {
         this.chart1.destroy();
       }
-      this.chart1 = new Chart(canvasId, {
-        type: 'pie',
-        data: {
-          labels,
-          datasets: [
-            {
-              data: values,
-              backgroundColor: backgroundColors,
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          responsive: true
-        },
-      });
-    } else if (canvasId == 'pieChart2') {
+    } else if (canvasId === 'pieChart2') {
       if (this.chart2) {
         this.chart2.destroy();
       }
-      this.chart2 = new Chart(canvasId, {
-        type: 'pie',
-        data: {
-          labels,
-          datasets: [
-            {
-              data: values,
-              backgroundColor: backgroundColors,
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          responsive: true
-        },
-      });
     }
-
+    const chart = new Chart(canvasId, {
+      type: 'pie',
+      data: {
+        labels,
+        datasets: [{
+          data: values,
+          backgroundColor: backgroundColors,
+          borderWidth: 1,
+        }],
+      },
+      options: {
+        responsive: true
+      },
+    });
+    if (canvasId === 'pieChart1') {
+      this.chart1 = chart;
+    } else if (canvasId === 'pieChart2') {
+      this.chart2 = chart;
+    }
   }
 
   generateBackgroundColors(numItems: number): string[] {
