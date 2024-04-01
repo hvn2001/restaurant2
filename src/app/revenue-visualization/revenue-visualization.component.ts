@@ -25,27 +25,26 @@ export class RevenueVisualizationComponent {
 
     this.http.get<any>(apiUrl).subscribe(
       data => {
-        const formattedDates = Object.keys(data).map(date => {
-          const [year, month, day] = date.split('-');
-          if (type == 'daily') {
-            return `${month}/${day}/${year}`;
-          } else if (type == 'monthly') {
-            return `${month}/${year}`;
-          }
-          return `${month}/${day}/${year}`;
-        });
-
-        this.lineChartData = [{ 
-          data: Object.values(data), 
-          label: 'Revenue',
-          backgroundColor: ["red", "green", "blue"],
-          hoverBackgroundColor: ["darkred", "darkgreen", "darkblue"],
-        }];
-        this.lineChartLabels = formattedDates
+        this.processRevenueData(data, type);
       },
       error => {
         console.log('Error fetching revenue data:', error);
       }
     );
+  }
+
+  private processRevenueData(data: any, type: string) {
+    const formattedDates = Object.keys(data).map(date => {
+      const [year, month, day] = date.split('-');
+      return type === 'daily' ? `${month}/${day}/${year}` : `${month}/${year}`;
+    });
+
+    this.lineChartData = [{
+      data: Object.values(data),
+      label: 'Revenue',
+      backgroundColor: ["red", "green", "blue"],
+      hoverBackgroundColor: ["darkred", "darkgreen", "darkblue"],
+    }];
+    this.lineChartLabels = formattedDates;
   }
 }
