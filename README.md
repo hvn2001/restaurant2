@@ -4,14 +4,14 @@ Project Description
 
 Now, The application consists of two main components:
 
-app-revenue-visualization: This component is responsible for visualizing revenue data.
-app-order-input: This component is responsible for showing ratio information.
+- app-revenue-visualization: This component visualizes daily and monthly revenue data.
+- app-order-input: This component is responsible for showing various ratio information.
 
 
 Running the Application
 
 
-# Restaurant2
+# Restaurant Management Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
 
@@ -36,6 +36,5 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
 
-Development
-
-We showing ratio information in range of time ...
+## TODO
+- Showing trends in ratio data in range of time
