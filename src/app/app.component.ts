@@ -8,7 +8,7 @@ declare var Chart: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private apiService: ApiService) {} // Inject ApiService
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
 

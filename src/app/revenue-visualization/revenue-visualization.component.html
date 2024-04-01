@@ -1,13 +1,13 @@
 <!-- revenue-visualization.component.html -->
 <div>
-  <h2>Daily Revenue Visualization</h2>
+  <h2>Revenue Visualization</h2>
   <form #form="ngForm" (ngSubmit)="fetchRevenue('daily')">
     <label for="from">From:</label>
     <input type="date" id="from" name="from" ngModel required>
     <label for="to">To:</label>
     <input type="date" id="to" name="to" ngModel required>
-    <button type="submit">Submit</button>
   </form>
+  <button (click)="fetchRevenue('daily')">Fetch Daily Revenue</button>
   <button (click)="fetchRevenue('monthly')">Fetch Monthly Revenue</button>
   <div>
     <canvas baseChart

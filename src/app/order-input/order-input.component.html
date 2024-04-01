@@ -1,15 +1,18 @@
+<h2>Ratio Visualization</h2>
 <div>
-    <input type="number" [(ngModel)]="orderNumber" placeholder="Enter Order Number">
-    <button (click)="fetchOrder('http://127.0.0.1:5000/api/orders/' + orderNumber, 'pieChart2')">Fetch items ratio in Order</button>
+    <input type="number" [(ngModel)]="numberItem" placeholder="Enter Number Item">
+    <button (click)="fetchOrder('http://127.0.0.1:5000/api/items/' + numberItem, 'pieChart1')">Fetch top n highest
+        revenue</button>
 </div>
-<div style="display: block;">
-    <canvas id="pieChart2" width="400" height="400"></canvas>
+<div class="chart-container" style="display: block;">
+    <canvas id="pieChart1" width="400" height="400"></canvas>
 </div>
 
 <div>
-    <input type="number" [(ngModel)]="numberItem" placeholder="Enter Number Item">
-    <button (click)="fetchOrder('http://127.0.0.1:5000/api/items/' + numberItem, 'pieChart3')">Fetch n highest revenue ratios</button>
+    <input type="number" [(ngModel)]="orderNumber" placeholder="Enter Order Number">
+    <button (click)="fetchOrder('http://127.0.0.1:5000/api/orders/' + orderNumber, 'pieChart2')">Fetch items ratio in
+        Order</button>
 </div>
 <div class="chart-container" style="display: block;">
-    <canvas id="pieChart3" width="400" height="400"></canvas>
+    <canvas id="pieChart2" width="400" height="400"></canvas>
 </div>

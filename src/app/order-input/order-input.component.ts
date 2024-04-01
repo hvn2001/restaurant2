@@ -11,10 +11,17 @@ import Chart from 'chart.js/auto';
 })
 export class OrderInputComponent {
 
-  orderNumber: number = 16114;
   numberItem: number = 3;
-  chart: any;
-  constructor(private apiService: ApiService) { } // Inject ApiService here
+  orderNumber: number = 16114;
+  chart1: any;
+  chart2: any;
+
+  constructor(private apiService: ApiService) { }
+
+  ngOnInit(): void {
+    this.fetchOrder('http://127.0.0.1:5000/api/items/' + this.numberItem, 'pieChart1');
+    this.fetchOrder('http://127.0.0.1:5000/api/orders/' + this.orderNumber, 'pieChart2');
+  }
 
   fetchOrder(apiUrl: string, canvasId: string) {
     if (this.orderNumber) {
@@ -22,11 +29,11 @@ export class OrderInputComponent {
       this.apiService.getOrders(apiUrl).subscribe(
         (data: any) => {
           // Handle the fetched data (e.g., display it or pass it to another component)
-          console.log('Fetched order data:', data);
+          // console.log('Fetched order data:', data);
           const labels = data.map((item: any) => item[0]);
           const values = data.map((item: any) => parseFloat(item[1]));
-          console.log('labels', labels);
-          console.log('values', values);
+          // console.log('labels', labels);
+          // console.log('values', values);
           // Generate background colors dynamically
           const backgroundColors = this.generateBackgroundColors(data.length);
           this.createPieChart(labels, values, backgroundColors, canvasId);
@@ -39,26 +46,48 @@ export class OrderInputComponent {
   }
 
   createPieChart(labels: string[], values: number[], backgroundColors: string[], canvasId: string) {
-    if (this.chart) {
-      this.chart.destroy();
+    if (canvasId == 'pieChart1') {
+      if (this.chart1) {
+        this.chart1.destroy();
+      }
+      this.chart1 = new Chart(canvasId, {
+        type: 'pie',
+        data: {
+          labels,
+          datasets: [
+            {
+              data: values,
+              backgroundColor: backgroundColors,
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true
+        },
+      });
+    } else if (canvasId == 'pieChart2') {
+      if (this.chart2) {
+        this.chart2.destroy();
+      }
+      this.chart2 = new Chart(canvasId, {
+        type: 'pie',
+        data: {
+          labels,
+          datasets: [
+            {
+              data: values,
+              backgroundColor: backgroundColors,
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true
+        },
+      });
     }
 
-    this.chart = new Chart(canvasId, {
-      type: 'pie',
-      data: {
-        labels,
-        datasets: [
-          {
-            data: values,
-            backgroundColor: backgroundColors,
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        responsive: true
-      },
-    });
   }
 
   generateBackgroundColors(numItems: number): string[] {
@@ -66,6 +95,5 @@ export class OrderInputComponent {
     const colors = ['red', 'blue', 'yellow', 'green', 'purple', 'orange'];
     return colors.slice(0, numItems);
   }
-
 
 }
